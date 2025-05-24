@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Fotografic - Fotografiere cu Intenție</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --text-muted: #adb5bd;
+            --border-color: #dee2e6;
+            --accent-primary: #0d6efd;
+            --accent-secondary: #6610f2;
+            --success: #198754;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-strong: rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #404040;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #6c6c6c;
+            --border-color: #404040;
+            --accent-primary: #4dabf7;
+            --accent-secondary: #845ef7;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --danger: #ff6b6b;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-strong: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 15px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="camera" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23camera)"/></svg>');
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger { /* Added this class */
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .journal-form {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .section h3 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .entries-list {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .entry-card {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .entry-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .entry-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .entry-preview {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem; 
+        }
+
+        .entry-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-small {
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                justify-content: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .journal-form {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease, visibility 0s 0.3s linear; /* Delay visibility transition */
+        }
+        .modal:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0s 0s linear;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 90%; 
+            max-width: 700px; 
+            max-height: 80vh; 
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px var(--shadow-strong);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal:not(.hidden) .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-header h2 {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 5px;
+            border-radius: 5px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        #modal-body ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        #modal-body li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--bg-tertiary);
+        }
+        #modal-body li:last-child {
+            border-bottom: none;
+        }
+        #modal-body h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #modal-body h3:first-of-type { /* The first h3 in modal body, likely from first section */
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📸 Jurnal Fotografic</h1>
+            <p>Fotografiere cu Intenție</p>
+        </div>
+
+        <div class="controls">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌙</span>
+                <span id="theme-text">Mod Întunecat</span>
+            </button>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="showNewEntry()">
+                    ➕ Intrare Nouă
+                </button>
+                <button class="btn btn-secondary" onclick="showAllEntries()">
+                    📋 Toate Intrările
+                </button>
+                <button class="btn btn-secondary" onclick="exportData()">
+                    💾 Export
+                </button>
+            </div>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-entries">0</div>
+                <div class="stat-label">Intrări Totale</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="this-month">0</div>
+                <div class="stat-label">Luna Aceasta</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avg-per-month">0</div>
+                <div class="stat-label">Media/Lună</div>
+            </div>
+        </div>
+
+        <div class="journal-form" id="journal-form"> 
+            <form id="photo-journal-form">
+                <div class="section" id="section-1">
+                    <h3>📅 1. Data și locul</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Data:</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Locul:</label>
+                            <input type="text" id="location" name="location" class="form-control" placeholder="ex: Parcul Herăstrău, București">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="conditions">Condiții meteo/lumină:</label>
+                        <textarea id="conditions" name="conditions" class="form-control" placeholder="ex: Cerul înnorat, lumină difuză, vânt ușor"></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-2">
+                    <h3>💭 2. Starea mea interioară</h3>
+                    <div class="section-description">Ce simt acum? Ce m-a adus aici?</div>
+                    <div class="form-group">
+                        <textarea id="inner-state" name="inner-state" class="form-control" placeholder="Descrie starea ta emoțională și motivația pentru această ieșire fotografică..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-3">
+                    <h3>🎯 3. Intenția principală</h3>
+                    <div class="section-description">Ce vreau să spun prin imaginile de azi?</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emotion">Emoție (ex: liniște, uimire, melancolie):</label>
+                            <input type="text" id="emotion" name="emotion" class="form-control" placeholder="liniște, uimire, melancolie...">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mesaj (ex: ciclicitate, contrast, apartenență):</label>
+                            <input type="text" id="message" name="message" class="form-control" placeholder="ciclicitate, contrast, apartenență...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="section-4">
+                    <h3>👁️ 4. Observații vizuale</h3>
+                    <div class="section-description">Ce elemente vizuale susțin intenția?</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="light">Lumină:</label>
+                            <input type="text" id="light" name="light" class="form-control" placeholder="naturală, artificială, contrastantă...">
+                        </div>
+                        <div class="form-group">
+                            <label for="shadows">Umbre:</label>
+                            <input type="text" id="shadows" name="shadows" class="form-control" placeholder="puternice, difuze, dramatice...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="textures">Texturi:</label>
+                            <input type="text" id="textures" name="textures" class="form-control" placeholder="aspre, netede, organice...">
+                        </div>
+                        <div class="form-group">
+                            <label for="colors">Culori dominante:</label>
+                            <input type="text" id="colors" name="colors" class="form-control" placeholder="calde, reci, monocromatice...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="movement">Mișcare sau liniște:</label>
+                            <input type="text" id="movement" name="movement" class="form-control" placeholder="dinamism, staticitate, ritm...">
+                        </div>
+                        <div class="form-group">
+                            <label for="contrast">Contrast / armonie:</label>
+                            <input type="text" id="contrast" name="contrast" class="form-control" placeholder="puternic, subtil, complementar...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="section-5">
+                    <h3>🖼️ 5. Elemente de compoziție</h3>
+                    <div class="section-description">Cum pot transmite povestea prin cadru?</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="angle">Unghi (jos/sus/nivelul ochilor):</label>
+                            <input type="text" id="angle" name="angle" class="form-control" placeholder="perspectivă joasă, înaltă, la nivel...">
+                        </div>
+                        <div class="form-group">
+                            <label for="negative-space">Spațiu negativ:</label>
+                            <input type="text" id="negative-space" name="negative-space" class="form-control" placeholder="mult, puțin, echilibrat...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="leading-lines">Linii conducătoare:</label>
+                            <input type="text" id="leading-lines" name="leading-lines" class="form-control" placeholder="diagonale, verticale, curbe...">
+                        </div>
+                        <div class="form-group">
+                            <label for="symmetry">Simetrie / asimetrie:</label>
+                            <input type="text" id="symmetry" name="symmetry" class="form-control" placeholder="perfectă, parțială, asimetrică...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="depth">Profunzime:</label>
+                        <input type="text" id="depth" name="depth" class="form-control" placeholder="planuri multiple, bokeh, DOF...">
+                    </div>
+                </div>
+
+                <div class="section" id="section-6">
+                    <h3>📋 6. Cadre cheie planificate</h3>
+                    <div class="section-description">Ce vreau neapărat să încerc azi?</div>
+                    <div class="form-group">
+                        <label for="planned-shot-1">Cadrul 1:</label>
+                        <textarea id="planned-shot-1" name="planned-shot-1" class="form-control" placeholder="Descrie primul cadru planificat..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="planned-shot-2">Cadrul 2:</label>
+                        <textarea id="planned-shot-2" name="planned-shot-2" class="form-control" placeholder="Descrie al doilea cadru planificat..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="planned-shot-3">Cadrul 3:</label>
+                        <textarea id="planned-shot-3" name="planned-shot-3" class="form-control" placeholder="Descrie al treilea cadru planificat..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-7">
+                    <h3>🔍 7. Descoperiri spontane</h3>
+                    <div class="section-description">Ce am observat pe parcursul zilei, neașteptat?</div>
+                    <div class="form-group">
+                        <textarea id="discoveries" name="discoveries" class="form-control" placeholder="Descrie descoperirile neașteptate din timpul fotografierii..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-8">
+                    <h3>🤔 8. Reflecție după fotografiere</h3>
+                    <div class="section-description">Ce imagini simt că spun povestea? Ce aș fi putut face diferit?</div>
+                    <div class="form-group">
+                        <textarea id="reflection" name="reflection" class="form-control" placeholder="Reflectează asupra rezultatelor și ce ai învățat..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-9">
+                    <h3>⭐ 9. Selecție preliminară</h3>
+                    <div class="section-description">Fișiere/descriere ale imaginilor selectate</div>
+                    <div class="form-group">
+                        <label for="selected-images">Imagini selectate:</label>
+                        <textarea id="selected-images" name="selected-images" class="form-control" placeholder="ex: IMG_2023.CR2 – Portret în lumina aurie; IMG_2031.CR2 – Peisaj cu reflexii..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section" id="section-10">
+                    <h3>💡 10. Citate sau gânduri</h3>
+                    <div class="section-description">Inspiră-mă pentru următoarea ieșire</div>
+                    <div class="form-group">
+                        <textarea id="inspiration" name="inspiration" class="form-control" placeholder="Gânduri, citate sau inspirații pentru viitor..."></textarea>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-success" style="padding: 15px 30px; font-size: 16px;">
+                        💾 Salvează Intrarea
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="entries-list hidden" id="entries-list">
+            <h2 style="margin-bottom: 1.5rem; color: var(--accent-primary);">📚 Jurnalul Meu Fotografic</h2>
+            <div id="entries-container">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📷</div>
+                    <h3>Nicio intrare încă</h3>
+                    <p>Începe să documentezi ieșirile tale fotografice!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="entry-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Detalii Intrare</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        let entries = [];
+        let editingEntryId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEntries();
+            updateStats();
+            setDefaultDate(); 
+            
+            document.getElementById('photo-journal-form').addEventListener('submit', saveEntry);
+            
+            const savedTheme = sessionStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeButton();
+        });
+
+        function setDefaultDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            sessionStorage.setItem('theme', newTheme);
+            updateThemeButton();
+        }
+
+        function updateThemeButton() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            
+            if (theme === 'dark') {
+                icon.textContent = '☀️';
+                text.textContent = 'Mod Luminos';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'Mod Întunecat';
+            }
+        }
+
+        function showNewEntry() {
+            editingEntryId = null;
+            
+            const form = document.getElementById('photo-journal-form');
+            form.reset();
+            setDefaultDate(); 
+            form.querySelector('button[type="submit"]').textContent = '💾 Salvează Intrarea';
+
+            document.getElementById('journal-form').classList.remove('hidden');
+            document.getElementById('entries-list').classList.add('hidden');
+            document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showAllEntries() {
+            document.getElementById('journal-form').classList.add('hidden');
+            document.getElementById('entries-list').classList.remove('hidden');
+            displayEntries();
+            document.getElementById('entries-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function saveEntry(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const entryData = {};
+            for (let [key, value] of formData.entries()) {
+                entryData[key] = value.trim();
+            }
+
+            if (!entryData.date) {
+                alert("Data este obligatorie!");
+                document.getElementById('date').focus();
+                return;
+            }
+
+            if (editingEntryId) { 
+                const index = entries.findIndex(en => en.id === editingEntryId);
+                if (index !== -1) {
+                    entries[index].data = entryData; 
+                }
+            } else { 
+                const newEntry = {
+                    id: generateId(),
+                    timestamp: new Date().toISOString(),
+                    data: entryData
+                };
+                entries.unshift(newEntry);
+            }
+
+            saveEntries();
+            updateStats();
+            
+            alert(editingEntryId ? 'Intrarea a fost actualizată!' : 'Intrarea a fost salvată!');
+            
+            editingEntryId = null; 
+            form.reset();
+            setDefaultDate(); 
+            form.querySelector('button[type="submit"]').textContent = '💾 Salvează Intrarea';
+        }
+
+        function loadEntries() {
+            const saved = sessionStorage.getItem('photoJournalEntries');
+            if (saved) {
+                try {
+                    entries = JSON.parse(saved);
+                } catch (error) {
+                    console.error("Eroare la parsarea intrărilor din sessionStorage:", error);
+                    entries = []; 
+                    sessionStorage.removeItem('photoJournalEntries'); // Clear corrupted data
+                }
+            }
+        }
+
+        function saveEntries() {
+            sessionStorage.setItem('photoJournalEntries', JSON.stringify(entries));
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+        }
+
+        function updateStats() {
+            const totalEntries = entries.length;
+            document.getElementById('total-entries').textContent = totalEntries;
+
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            const thisMonthEntries = entries.filter(entry => {
+                if (!entry.data.date) return false;
+                const entryDate = new Date(entry.data.date + "T00:00:00Z"); // Interpret date as UTC then get local month/year
+                return entryDate.getUTCMonth() === currentMonth && entryDate.getUTCFullYear() === currentYear;
+            }).length;
+            document.getElementById('this-month').textContent = thisMonthEntries;
+
+            const avgPerMonth = totalEntries > 0 ? (totalEntries / Math.max(1, getMonthsSinceFirstEntry())).toFixed(1) : "0.0";
+            document.getElementById('avg-per-month').textContent = avgPerMonth;
+        }
+
+        function getMonthsSinceFirstEntry() {
+            if (entries.length === 0) return 1;
+            
+            const sortedEntries = [...entries].sort((a,b) => new Date(a.data.date + "T00:00:00Z") - new Date(b.data.date + "T00:00:00Z"));
+            const firstEntry = sortedEntries[0];
+
+            if (!firstEntry || !firstEntry.data.date) return 1;
+
+            const firstDate = new Date(firstEntry.data.date + "T00:00:00Z");
+            const now = new Date();
+            
+            let monthsDiff = (now.getUTCFullYear() - firstDate.getUTCFullYear()) * 12;
+            monthsDiff -= firstDate.getUTCMonth();
+            monthsDiff += now.getUTCMonth();
+            
+            return Math.max(1, monthsDiff + 1);
+        }
+
+        function displayEntries() {
+            const entriesContainer = document.getElementById('entries-container');
+            entriesContainer.innerHTML = ''; 
+
+            if (entries.length === 0) {
+                entriesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📷</div>
+                        <h3>Nicio intrare încă</h3>
+                        <p>Începe să documentezi ieșirile tale fotografice!</p>
+                    </div>`;
+                return;
+            }
+
+            const sortedEntriesForDisplay = [...entries].sort((a,b) => new Date(b.data.date + "T00:00:00Z") - new Date(a.data.date + "T00:00:00Z"));
+
+            sortedEntriesForDisplay.forEach(entry => {
+                const card = document.createElement('div');
+                card.classList.add('entry-card');
+
+                const entryDateObj = entry.data.date ? new Date(entry.data.date + "T00:00:00Z") : null;
+                const entryDateFormatted = entryDateObj ? entryDateObj.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }) : 'Dată necunoscută';
+                const entryLocation = entry.data.location || 'Locație neprecizată';
+                
+                let previewText = entry.data['inner-state'] || entry.data.reflection || entry.data.emotion || 'Fără previzualizare.';
+                if (previewText.length > 120) {
+                    previewText = previewText.substring(0, 120) + '...';
+                }
+
+                card.innerHTML = `
+                    <div class="entry-header">
+                        <h3 class="entry-title">${entryLocation}</h3>
+                        <span class="entry-date">${entryDateFormatted}</span>
+                    </div>
+                    <p class="entry-preview">${previewText.replace(/\n/g, '<br>')}</p>
+                    <div class="entry-actions">
+                        <button class="btn btn-small btn-secondary" onclick="viewEntry('${entry.id}')">👁️ Vezi</button>
+                        <button class="btn btn-small btn-primary" onclick="editEntry('${entry.id}')">✏️ Editează</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteEntry('${entry.id}')">🗑️ Șterge</button>
+                    </div>
+                `;
+                entriesContainer.appendChild(card);
+            });
+        }
+        
+        function viewEntry(entryId) {
+            const entry = entries.find(e => e.id === entryId);
+            if (!entry) return;
+
+            const modal = document.getElementById('entry-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            const entryDateObj = entry.data.date ? new Date(entry.data.date + "T00:00:00Z") : null;
+            const entryDisplayDate = entryDateObj ? entryDateObj.toLocaleDateString('ro-RO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }) : 'Fără dată';
+            modalTitle.textContent = `Intrare: ${entryDisplayDate}`;
+            
+            let bodyContent = `<p style="font-size:0.9em; color:var(--text-muted);">ID: ${entry.id} | Salvat: ${new Date(entry.timestamp).toLocaleString('ro-RO')}</p><hr style="margin-bottom:1rem;">`;
+
+            const sectionsMeta = [
+                { id: "section-1", title: "📅 Data și locul", fields: ["date", "location", "conditions"] },
+                { id: "section-2", title: "💭 Starea mea interioară", fields: ["inner-state"] },
+                { id: "section-3", title: "🎯 Intenția principală", fields: ["emotion", "message"] },
+                { id: "section-4", title: "👁️ Observații vizuale", fields: ["light", "shadows", "textures", "colors", "movement", "contrast"] },
+                { id: "section-5", title: "🖼️ Elemente de compoziție", fields: ["angle", "negative-space", "leading-lines", "symmetry", "depth"] },
+                { id: "section-6", title: "📋 Cadre cheie planificate", fields: ["planned-shot-1", "planned-shot-2", "planned-shot-3"] },
+                { id: "section-7", title: "🔍 Descoperiri spontane", fields: ["discoveries"] },
+                { id: "section-8", title: "🤔 Reflecție după fotografiere", fields: ["reflection"] },
+                { id: "section-9", title: "⭐ Selecție preliminară", fields: ["selected-images"] },
+                { id: "section-10", title: "💡 Citate sau gânduri", fields: ["inspiration"] }
+            ];
+            
+            sectionsMeta.forEach(section => {
+                let sectionHtmlContent = '';
+                let hasDataInSection = false;
+
+                section.fields.forEach(fieldKey => {
+                    if (entry.data[fieldKey] && entry.data[fieldKey].trim() !== '') {
+                        if (!hasDataInSection) { 
+                             hasDataInSection = true;
+                        }
+                        const labelElement = document.querySelector(`label[for="${fieldKey}"]`);
+                        let labelText = fieldKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        if(labelElement) { // Prefer label from form if available
+                           labelText = labelElement.textContent.replace(':', '');
+                        }
+                        // Special handling for date field to format it nicely
+                        let fieldValue = entry.data[fieldKey];
+                        if (fieldKey === 'date') {
+                            const dateObj = new Date(fieldValue + "T00:00:00Z");
+                            fieldValue = dateObj.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+                        } else {
+                           fieldValue = fieldValue.replace(/\n/g, '<br>');
+                        }
+                        
+                        sectionHtmlContent += `<li><strong>${labelText}:</strong><div style="padding-left:10px; margin-top:5px; word-break: break-word;">${fieldValue}</div></li>`;
+                    }
+                });
+                 if (hasDataInSection) {
+                    bodyContent += `<h3>${section.title}</h3><ul>${sectionHtmlContent}</ul>`;
+                }
+            });
+            
+            modalBody.innerHTML = bodyContent;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('entry-modal').classList.add('hidden');
+            document.getElementById('modal-body').innerHTML = ''; 
+        }
+
+        function editEntry(entryId) {
+            const entryToEdit = entries.find(e => e.id === entryId);
+            if (!entryToEdit) return;
+
+            editingEntryId = entryId;
+
+            document.getElementById('journal-form').classList.remove('hidden');
+            document.getElementById('entries-list').classList.add('hidden');
+            
+            const form = document.getElementById('photo-journal-form');
+            form.reset(); 
+
+            for (const key in entryToEdit.data) {
+                if (form.elements[key]) {
+                    form.elements[key].value = entryToEdit.data[key];
+                }
+            }
+            if (entryToEdit.data.date) {
+                 document.getElementById('date').value = entryToEdit.data.date;
+            } else {
+                setDefaultDate();
+            }
+            
+            form.querySelector('button[type="submit"]').textContent = '💾 Actualizează Intrarea';
+            document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function deleteEntry(entryId) {
+            if (confirm("Ești sigur că vrei să ștergi această intrare? Acțiunea este ireversibilă.")) {
+                entries = entries.filter(entry => entry.id !== entryId);
+                saveEntries();
+                updateStats();
+                // If the list is currently visible, refresh it
+                if (!document.getElementById('entries-list').classList.contains('hidden')) {
+                    displayEntries();
+                }
+                alert("Intrarea a fost ștearsă.");
+            }
+        }
+
+        function exportData() {
+            if (entries.length === 0) {
+                alert("Nu există intrări de exportat.");
+                return;
+            }
+            const dataStr = JSON.stringify(entries, null, 2); 
+            const dataBlob = new Blob([dataStr], { type: 'application/json;charset=utf-8;' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const timestamp = new Date().toISOString().slice(0,10).replace(/-/g,'');
+            const filename = `jurnal_fotografic_${timestamp}.json`;
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(`Datele au fost exportate ca '${filename}'`);
+        }
+    </script>
+</body>
+</html>
