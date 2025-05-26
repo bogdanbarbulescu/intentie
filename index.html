@@ -5,36 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jurnal Fotografic - Fotografiere cu Intenție</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         :root {
             --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-tertiary: #e9ecef;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --text-muted: #adb5bd;
-            --border-color: #dee2e6;
-            --accent-primary: #0d6efd;
-            --accent-secondary: #6610f2;
-            --success: #198754;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: rgba(0, 0, 0, 0.08);
             --shadow-strong: rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         [data-theme="dark"] {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --bg-tertiary: #404040;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --text-muted: #6c6c6c;
-            --border-color: #404040;
-            --accent-primary: #4dabf7;
-            --accent-secondary: #845ef7;
-            --success: #51cf66;
-            --warning: #ffd43b;
-            --danger: #ff6b6b;
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #16213e;
+            --bg-glass: rgba(15, 15, 35, 0.85);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --accent-primary: #60a5fa;
+            --accent-secondary: #a78bfa;
+            --accent-tertiary: #22d3ee;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
             --shadow: rgba(0, 0, 0, 0.3);
             --shadow-strong: rgba(0, 0, 0, 0.5);
         }
@@ -46,28 +55,69 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        [data-theme="dark"] body::before {
+             background: 
+                radial-gradient(circle at 25% 25%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%);
+        }
+
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-0.5deg); }
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem 0;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 15px;
+            margin-bottom: 3rem;
+            padding: 4rem 2rem;
+            background: var(--gradient-primary);
+            border-radius: 24px;
             color: white;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px var(--shadow-strong);
+            transform: translateY(0);
+            animation: slideInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .header::before {
@@ -77,296 +127,524 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="camera" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23camera)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="camera" patternUnits="userSpaceOnUse" width="30" height="30"><g opacity="0.1"><path d="M15 8h-2l-2-3H9L7 8H5a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V10a2 2 0 00-2-2zM10 20a5 5 0 110-10 5 5 0 010 10zm0-2a3 3 0 100-6 3 3 0 000 6z" fill="white"/></g></pattern></defs><rect width="100" height="100" fill="url(%23camera)"/></svg>');
+            animation: backgroundPan 30s linear infinite;
+        }
+
+        @keyframes backgroundPan {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-30px); }
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
             position: relative;
             z-index: 1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            opacity: 0.95;
             position: relative;
             z-index: 1;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
 
         .controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem;
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .theme-toggle {
-            background: var(--bg-secondary);
+            background: var(--bg-glass);
             border: 2px solid var(--border-color);
-            border-radius: 25px;
-            padding: 8px 16px;
+            border-radius: 50px;
+            padding: 12px 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--text-primary);
+            font-weight: 500;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        [data-theme="dark"] .theme-toggle::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .theme-toggle:hover::before {
+            left: 100%;
         }
 
         .theme-toggle:hover {
-            background: var(--bg-tertiary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
+            background: var(--bg-secondary);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px var(--shadow);
+            border-color: var(--accent-primary);
         }
 
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        [data-theme="dark"] .btn-secondary::before {
+             background: rgba(255, 255, 255, 0.1);
+        }
+
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary {
-            background: var(--accent-primary);
+            background: var(--gradient-primary);
             color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        [data-theme="dark"] .btn-primary {
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.2);
         }
 
+
         .btn-secondary {
-            background: var(--bg-secondary);
+            background: var(--bg-glass);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
         }
 
         .btn-success {
-            background: var(--success);
+            background: var(--gradient-accent);
             color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        [data-theme="dark"] .btn-success {
+            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.2);
         }
         
-        .btn-danger { /* Added this class */
-            background: var(--danger);
+        .btn-danger {
+            background: var(--gradient-secondary);
             color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        [data-theme="dark"] .btn-danger {
+             box-shadow: 0 4px 15px rgba(248, 113, 113, 0.2);
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px var(--shadow-strong);
         }
 
-        .journal-form {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 25px var(--shadow);
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+        }
+
+        .stat-card {
+            background: var(--bg-glass);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
             border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px var(--shadow);
+            background: var(--bg-secondary);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent; /* Standard property */
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .journal-form, .entries-list-container { 
+            background: var(--bg-glass);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px var(--shadow);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+        }
+        .journal-form h2, .entries-list-container h2 { /* Combined for consistency */
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
         }
 
         .section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
             background: var(--bg-primary);
-            border-radius: 10px;
+            border-radius: 16px;
             border-left: 4px solid var(--accent-primary);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section:hover::before {
+            width: 8px;
         }
 
         .section:hover {
-            box-shadow: 0 4px 15px var(--shadow);
+            transform: translateX(4px);
+            box-shadow: 0 8px 30px var(--shadow);
+            background: var(--bg-secondary);
         }
 
         .section h3 {
-            color: var(--accent-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .section h3 svg { /* For icons in section titles if any */
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
         }
 
         .section-description {
             color: var(--text-secondary);
             font-style: italic;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
             color: var(--text-primary);
+            font-size: 0.95rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
+            padding: 16px 20px;
             border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 12px;
             background: var(--bg-primary);
             color: var(--text-primary);
             font-family: inherit;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
         }
 
         .form-control:focus {
-            outline: none;
             border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        [data-theme="dark"] .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15);
+        }
+
+        .form-control:hover {
+            border-color: var(--accent-secondary);
         }
 
         textarea.form-control {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
+            font-family: inherit;
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
-        .entries-list {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
+        #photoPreviewContainer {
+            margin-top: 1rem;
         }
+        #photoPreview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            object-fit: cover;
+        }
+
 
         .entry-card {
             background: var(--bg-primary);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .entry-card:hover::before {
+            transform: scaleX(1);
         }
 
         .entry-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px var(--shadow);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--shadow);
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
         }
+        .entry-card img.thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1.5rem;
+            border: 1px solid var(--border-color);
+            float: left; 
+        }
+
 
         .entry-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .entry-content-wrapper { 
+            overflow: hidden; 
         }
 
         .entry-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            color: var(--accent-primary);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         .entry-date {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            font-weight: 500;
+            background: var(--bg-tertiary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
         }
 
         .entry-preview {
             color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 1rem; 
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            clear: both; 
         }
 
         .entry-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 1rem;
+            gap: 12px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            clear: both; 
+        }
+         .entry-actions .btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         .btn-small {
-            padding: 5px 12px;
-            font-size: 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 8px;
+            font-weight: 500;
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem;
+            padding: 4rem 2rem;
             color: var(--text-secondary);
         }
 
         .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            font-size: 5rem;
             margin-bottom: 2rem;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+            display: inline-block; 
+        }
+        .empty-state-icon svg {
+            width: 1em; 
+            height: 1em;
+            fill: currentColor;
         }
 
-        .stat-card {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-primary);
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .controls {
-                justify-content: center;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .journal-form {
-                padding: 1rem;
-            }
-            
-            .section {
-                padding: 1rem;
-            }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         .modal {
@@ -375,91 +653,340 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            opacity: 0; 
-            visibility: hidden; 
-            transition: opacity 0.3s ease, visibility 0s 0.3s linear; /* Delay visibility transition */
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .modal:not(.hidden) {
+        [data-theme="dark"] .modal {
+            background: rgba(15, 15, 35, 0.7);
+        }
+
+        .modal:not(.hidden) { 
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.3s ease, visibility 0s 0s linear;
         }
 
         .modal-content {
             background: var(--bg-primary);
-            border-radius: 15px;
-            padding: 2rem;
-            width: 90%; 
-            max-width: 700px; 
-            max-height: 80vh; 
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
             overflow-y: auto;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px var(--shadow-strong);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
+            box-shadow: 0 25px 80px var(--shadow-strong);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .modal:not(.hidden) .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
         }
+
         .modal-header h2 {
-            color: var(--accent-primary);
-            font-size: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0; 
         }
 
         .close-btn {
-            background: none;
+            background: var(--bg-secondary);
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-secondary);
-            padding: 5px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 50%;
             line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .close-btn:hover {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
+            background: var(--danger);
+            color: white;
+            transform: scale(1.1) rotate(90deg);
         }
+
         #modal-body ul {
             list-style-type: none;
             padding-left: 0;
         }
+
         #modal-body li {
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--bg-tertiary);
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-color);
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
         }
+        #modal-body li strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        #modal-body li:hover {
+            background: var(--bg-secondary);
+            padding-left: 12px;
+            border-radius: 8px;
+        }
+
         #modal-body li:last-child {
             border-bottom: none;
         }
+
         #modal-body h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent-secondary);
-            font-size: 1.2rem;
-            padding-bottom: 0.3rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 600;
         }
-        #modal-body h3:first-of-type { /* The first h3 in modal body, likely from first section */
+
+        #modal-body h3:first-of-type {
             margin-top: 0;
+        }
+        #modal-photo {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            z-index: 1001;
+            transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%; 
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        [data-theme="dark"] .fab {
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.3);
+        }
+
+        .fab:hover {
+            transform: scale(1.1) translateY(-2px) rotate(15deg);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+        }
+        [data-theme="dark"] .fab:hover {
+            box-shadow: 0 12px 35px rgba(96, 165, 250, 0.5);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            border: 2px solid var(--bg-secondary); 
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 3rem 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .controls {
+                justify-content: center;
+                gap: 1rem;
+                flex-direction: column;
+            }
+             .controls .btn-group {
+                justify-content: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .journal-form, .entries-list-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .fab {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .entry-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .entry-card img.thumbnail {
+                float: none;
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                height: auto; 
+                max-height: 200px;
+            }
+
+            .entry-actions {
+                justify-content: flex-start;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 13px;
+            }
+            .btn-group .btn { 
+                flex-grow: 1;
+                text-align: center;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 18px; 
+            height: 18px; 
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+            margin-left: 8px; 
+        }
+        .btn .loading { 
+             margin-left: 8px;
+        }
+        .btn-secondary .loading { 
+            border: 2px solid var(--text-muted);
+            border-top-color: var(--accent-primary);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--shadow);
+            transform: translateX(calc(100% + 40px)); 
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1002;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateX(0);
         }
     </style>
 </head>
 <body>
+    <div class="progress-indicator" id="progress"></div>
+    
     <div class="container">
         <div class="header">
             <h1>📸 Jurnal Fotografic</h1>
@@ -467,20 +994,23 @@
         </div>
 
         <div class="controls">
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <span id="theme-icon">🌙</span>
+            <button class="theme-toggle" id="themeToggleBtn">
+                <svg id="theme-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 <span id="theme-text">Mod Întunecat</span>
             </button>
             
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="showNewEntry()">
-                    ➕ Intrare Nouă
+                <button class="btn btn-primary" id="showNewEntryBtn">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Intrare Nouă
                 </button>
-                <button class="btn btn-secondary" onclick="showAllEntries()">
-                    📋 Toate Intrările
+                <button class="btn btn-secondary" id="showAllEntriesBtn">
+                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                    Toate Intrările
                 </button>
-                <button class="btn btn-secondary" onclick="exportData()">
-                    💾 Export
+                <button class="btn btn-secondary" id="exportDataBtn">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Export Date
                 </button>
             </div>
         </div>
@@ -500,8 +1030,11 @@
             </div>
         </div>
 
-        <div class="journal-form" id="journal-form"> 
+        <div class="journal-form hidden" id="journal-form-container"> 
+            <h2 id="form-title">📝 Adaugă o Intrare Nouă</h2>
             <form id="photo-journal-form">
+                <input type="hidden" id="entryId">
+                
                 <div class="section" id="section-1">
                     <h3>📅 1. Data și locul</h3>
                     <div class="form-row">
@@ -511,7 +1044,7 @@
                         </div>
                         <div class="form-group">
                             <label for="location">Locul:</label>
-                            <input type="text" id="location" name="location" class="form-control" placeholder="ex: Parcul Herăstrău, București">
+                            <input type="text" id="location" name="location" class="form-control" placeholder="ex: Parcul Herăstrău, București" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -656,375 +1189,560 @@
                         <textarea id="inspiration" name="inspiration" class="form-control" placeholder="Gânduri, citate sau inspirații pentru viitor..."></textarea>
                     </div>
                 </div>
+                
+                <div class="section" id="section-photo"> <!-- Added Photo Upload Section -->
+                    <h3><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></g></svg> Fotografia Principală</h3>
+                    <div class="form-group">
+                        <label for="photoUpload">Încarcă fotografia (max 2MB)</label>
+                        <input type="file" id="photoUpload" class="form-control" accept="image/*">
+                    </div>
+                    <div id="photoPreviewContainer">
+                        <img id="photoPreview" src="#" alt="Previzualizare foto" class="hidden"/>
+                    </div>
+                </div>
 
-                <div style="text-align: center; margin-top: 2rem;">
-                    <button type="submit" class="btn btn-success" style="padding: 15px 30px; font-size: 16px;">
-                        💾 Salvează Intrarea
+
+                <div class="btn-group" style="justify-content: flex-end; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" id="clearFormBtn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        Resetează
+                    </button>
+                    <button type="submit" class="btn btn-success" id="submitBtn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Salvează Intrarea
+                        <span class="loading hidden"></span>
                     </button>
                 </div>
             </form>
         </div>
 
-        <div class="entries-list hidden" id="entries-list">
-            <h2 style="margin-bottom: 1.5rem; color: var(--accent-primary);">📚 Jurnalul Meu Fotografic</h2>
-            <div id="entries-container">
-                <div class="empty-state">
-                    <div class="empty-state-icon">📷</div>
-                    <h3>Nicio intrare încă</h3>
-                    <p>Începe să documentezi ieșirile tale fotografice!</p>
-                </div>
+        <div class="entries-list-container hidden" id="entries-list-container">
+            <h2>📋 Toate Intrările</h2>
+            <div id="entriesGrid">
+                <!-- Entries will be rendered here by JavaScript -->
+            </div>
+             <div class="empty-state hidden" id="emptyState">
+                <span class="empty-state-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path></svg>
+                </span>
+                <h3>Nicio intrare găsită.</h3>
+                <p>Începe prin a adăuga prima ta reflecție fotografică!</p>
+                <button class="btn btn-primary" id="addFirstEntryBtn" style="margin-top:1.5rem;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Adaugă Prima Intrare
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="modal hidden" id="entry-modal">
+    <div class="modal hidden" id="entryModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">Detalii Intrare</h2>
-                <button class="close-btn" onclick="closeModal()">×</button>
+                <button class="close-btn" id="modalCloseBtn" aria-label="Închide">×</button>
             </div>
-            <div id="modal-body"></div>
+            <div class="modal-body" id="modal-body">
+                <img id="modal-photo" src="#" alt="Fotografie" class="hidden"/>
+                <!-- Content will be injected by JavaScript -->
+            </div>
         </div>
     </div>
 
+    <button class="fab" id="fab" title="Adaugă Intrare Nouă">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:24px; height:24px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+    </button>
+
+    <div class="toast" id="toast">Mesaj Toast</div>
+
     <script>
-        let entries = [];
-        let editingEntryId = null;
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeText = document.getElementById('theme-text');
+        const themeIconSvg = document.getElementById('theme-icon-svg');
+        const body = document.body;
+        const form = document.getElementById('photo-journal-form');
+        const journalFormContainer = document.getElementById('journal-form-container');
+        const entriesListContainer = document.getElementById('entries-list-container');
+        const entriesGrid = document.getElementById('entriesGrid');
+        const emptyState = document.getElementById('emptyState');
+        const showNewEntryBtn = document.getElementById('showNewEntryBtn');
+        const showAllEntriesBtn = document.getElementById('showAllEntriesBtn');
+        const addFirstEntryBtn = document.getElementById('addFirstEntryBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const fab = document.getElementById('fab');
+        const progressBar = document.getElementById('progress');
+        const toast = document.getElementById('toast');
+        const modal = document.getElementById('entryModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalPhoto = document.getElementById('modal-photo');
+        const formTitle = document.getElementById('form-title');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = submitBtn.childNodes[2]; 
+        const loadingSpinner = submitBtn.querySelector('.loading');
+        const clearFormBtn = document.getElementById('clearFormBtn');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadEntries();
-            updateStats();
-            setDefaultDate(); 
-            
-            document.getElementById('photo-journal-form').addEventListener('submit', saveEntry);
-            
-            const savedTheme = sessionStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeButton();
-        });
+        // Form fields (New Structure)
+        const entryIdInput = document.getElementById('entryId');
+        const dateInput = document.getElementById('date'); // Changed from photoDateInput
+        const locationInput = document.getElementById('location');
+        const conditionsInput = document.getElementById('conditions');
+        const innerStateInput = document.getElementById('inner-state');
+        const emotionInput = document.getElementById('emotion');
+        const messageInput = document.getElementById('message');
+        const lightInput = document.getElementById('light');
+        const shadowsInput = document.getElementById('shadows');
+        const texturesInput = document.getElementById('textures');
+        const colorsInput = document.getElementById('colors');
+        const movementInput = document.getElementById('movement');
+        const contrastInput = document.getElementById('contrast');
+        const angleInput = document.getElementById('angle');
+        const negativeSpaceInput = document.getElementById('negative-space');
+        const leadingLinesInput = document.getElementById('leading-lines');
+        const symmetryInput = document.getElementById('symmetry');
+        const depthInput = document.getElementById('depth');
+        const plannedShot1Input = document.getElementById('planned-shot-1');
+        const plannedShot2Input = document.getElementById('planned-shot-2');
+        const plannedShot3Input = document.getElementById('planned-shot-3');
+        const discoveriesInput = document.getElementById('discoveries');
+        const reflectionInput = document.getElementById('reflection'); // Single reflection field
+        const selectedImagesInput = document.getElementById('selected-images');
+        const inspirationInput = document.getElementById('inspiration');
+        
+        // Photo Upload (Kept)
+        const photoUploadInput = document.getElementById('photoUpload');
+        const photoPreview = document.getElementById('photoPreview');
+        // const photoPreviewContainer = document.getElementById('photoPreviewContainer'); // Already defined by style
 
-        function setDefaultDate() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').value = today;
+        let journalEntries = [];
+        let currentEditId = null;
+        let currentPhotoDataUrl = null;
+
+        // --- THEME ---
+        const sunIcon = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.485-8.485l.707.707M4.207 4.207l.707.707m14.186 0l-.707.707M4.207 19.793l-.707.707m14.893-8.485h-1M4 11.5H3m5.05-6.707l.707-.707M5.757 19.071l.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>`;
+        const moonIcon = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeIconSvg.innerHTML = sunIcon;
+                themeText.textContent = 'Mod Luminos';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIconSvg.innerHTML = moonIcon;
+                themeText.textContent = 'Mod Întunecat';
+            }
         }
 
         function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            sessionStorage.setItem('theme', newTheme);
-            updateThemeButton();
+            applyTheme(newTheme);
+            localStorage.setItem('photoJournalTheme', newTheme);
         }
+        themeToggleBtn.addEventListener('click', toggleTheme);
 
-        function updateThemeButton() {
-            const theme = document.documentElement.getAttribute('data-theme');
-            const icon = document.getElementById('theme-icon');
-            const text = document.getElementById('theme-text');
-            
-            if (theme === 'dark') {
-                icon.textContent = '☀️';
-                text.textContent = 'Mod Luminos';
-            } else {
-                icon.textContent = '🌙';
-                text.textContent = 'Mod Întunecat';
+        // --- DATA HANDLING ---
+        function loadEntriesFromStorage() {
+            const storedEntries = localStorage.getItem('photoJournalEntries');
+            if (storedEntries) {
+                journalEntries = JSON.parse(storedEntries);
             }
         }
 
-        function showNewEntry() {
-            editingEntryId = null;
-            
-            const form = document.getElementById('photo-journal-form');
-            form.reset();
-            setDefaultDate(); 
-            form.querySelector('button[type="submit"]').textContent = '💾 Salvează Intrarea';
-
-            document.getElementById('journal-form').classList.remove('hidden');
-            document.getElementById('entries-list').classList.add('hidden');
-            document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function saveEntriesToStorage() {
+            localStorage.setItem('photoJournalEntries', JSON.stringify(journalEntries));
         }
 
-        function showAllEntries() {
-            document.getElementById('journal-form').classList.add('hidden');
-            document.getElementById('entries-list').classList.remove('hidden');
-            displayEntries();
-            document.getElementById('entries-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function saveEntry(e) {
-            e.preventDefault();
-            
-            const form = e.target;
-            const formData = new FormData(form);
-            const entryData = {};
-            for (let [key, value] of formData.entries()) {
-                entryData[key] = value.trim();
-            }
-
-            if (!entryData.date) {
-                alert("Data este obligatorie!");
-                document.getElementById('date').focus();
-                return;
-            }
-
-            if (editingEntryId) { 
-                const index = entries.findIndex(en => en.id === editingEntryId);
-                if (index !== -1) {
-                    entries[index].data = entryData; 
-                }
-            } else { 
-                const newEntry = {
-                    id: generateId(),
-                    timestamp: new Date().toISOString(),
-                    data: entryData
-                };
-                entries.unshift(newEntry);
-            }
-
-            saveEntries();
-            updateStats();
-            
-            alert(editingEntryId ? 'Intrarea a fost actualizată!' : 'Intrarea a fost salvată!');
-            
-            editingEntryId = null; 
-            form.reset();
-            setDefaultDate(); 
-            form.querySelector('button[type="submit"]').textContent = '💾 Salvează Intrarea';
-        }
-
-        function loadEntries() {
-            const saved = sessionStorage.getItem('photoJournalEntries');
-            if (saved) {
-                try {
-                    entries = JSON.parse(saved);
-                } catch (error) {
-                    console.error("Eroare la parsarea intrărilor din sessionStorage:", error);
-                    entries = []; 
-                    sessionStorage.removeItem('photoJournalEntries'); // Clear corrupted data
-                }
-            }
-        }
-
-        function saveEntries() {
-            sessionStorage.setItem('photoJournalEntries', JSON.stringify(entries));
-        }
-
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-        }
-
+        // --- UI UPDATES ---
         function updateStats() {
-            const totalEntries = entries.length;
-            document.getElementById('total-entries').textContent = totalEntries;
+            document.getElementById('total-entries').textContent = journalEntries.length;
 
             const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-            
-            const thisMonthEntries = entries.filter(entry => {
-                if (!entry.data.date) return false;
-                const entryDate = new Date(entry.data.date + "T00:00:00Z"); // Interpret date as UTC then get local month/year
-                return entryDate.getUTCMonth() === currentMonth && entryDate.getUTCFullYear() === currentYear;
+            const currentMonthEntries = journalEntries.filter(entry => {
+                const entryDate = new Date(entry.date); // Use new date field
+                return entryDate.getFullYear() === now.getFullYear() && entryDate.getMonth() === now.getMonth();
             }).length;
-            document.getElementById('this-month').textContent = thisMonthEntries;
-
-            const avgPerMonth = totalEntries > 0 ? (totalEntries / Math.max(1, getMonthsSinceFirstEntry())).toFixed(1) : "0.0";
+            document.getElementById('this-month').textContent = currentMonthEntries;
+            
+            const monthYears = new Set();
+            journalEntries.forEach(entry => {
+                const entryDate = new Date(entry.date); // Use new date field
+                monthYears.add(`${entryDate.getFullYear()}-${entryDate.getMonth()}`);
+            });
+            const uniqueMonthsCount = monthYears.size;
+            const avgPerMonth = uniqueMonthsCount > 0 ? (journalEntries.length / uniqueMonthsCount).toFixed(1) : 0;
             document.getElementById('avg-per-month').textContent = avgPerMonth;
         }
 
-        function getMonthsSinceFirstEntry() {
-            if (entries.length === 0) return 1;
-            
-            const sortedEntries = [...entries].sort((a,b) => new Date(a.data.date + "T00:00:00Z") - new Date(b.data.date + "T00:00:00Z"));
-            const firstEntry = sortedEntries[0];
-
-            if (!firstEntry || !firstEntry.data.date) return 1;
-
-            const firstDate = new Date(firstEntry.data.date + "T00:00:00Z");
-            const now = new Date();
-            
-            let monthsDiff = (now.getUTCFullYear() - firstDate.getUTCFullYear()) * 12;
-            monthsDiff -= firstDate.getUTCMonth();
-            monthsDiff += now.getUTCMonth();
-            
-            return Math.max(1, monthsDiff + 1);
-        }
-
-        function displayEntries() {
-            const entriesContainer = document.getElementById('entries-container');
-            entriesContainer.innerHTML = ''; 
-
-            if (entries.length === 0) {
-                entriesContainer.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📷</div>
-                        <h3>Nicio intrare încă</h3>
-                        <p>Începe să documentezi ieșirile tale fotografice!</p>
-                    </div>`;
-                return;
+        function renderEntries() {
+            entriesGrid.innerHTML = '';
+            if (journalEntries.length === 0) {
+                emptyState.classList.remove('hidden');
+                entriesGrid.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                entriesGrid.classList.remove('hidden');
+                journalEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(entry => { // Sort by new date field
+                    const card = document.createElement('div');
+                    card.className = 'entry-card';
+                    card.innerHTML = `
+                        ${entry.photoUrl ? `<img src="${entry.photoUrl}" alt="Thumbnail for ${entry.location}" class="thumbnail">` : ''}
+                        <div class="entry-content-wrapper">
+                            <div class="entry-header">
+                                <h3 class="entry-title">${entry.location || 'Intrare fără titlu'}</h3>
+                                <span class="entry-date">${new Date(entry.date).toLocaleDateString('ro-RO')}</span>
+                            </div>
+                            <p class="entry-preview">${(entry.innerState || entry.mainIntention?.message || 'Nicio descriere.').substring(0,120)}...</p>
+                        </div>
+                        <div class="entry-actions">
+                            <button class="btn btn-small btn-secondary view-btn" data-id="${entry.id}">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg> Detalii
+                            </button>
+                            <button class="btn btn-small btn-secondary edit-btn" data-id="${entry.id}">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Editează
+                            </button>
+                            <button class="btn btn-small btn-danger delete-btn" data-id="${entry.id}">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg> Șterge
+                            </button>
+                        </div>
+                    `;
+                    entriesGrid.appendChild(card);
+                });
             }
-
-            const sortedEntriesForDisplay = [...entries].sort((a,b) => new Date(b.data.date + "T00:00:00Z") - new Date(a.data.date + "T00:00:00Z"));
-
-            sortedEntriesForDisplay.forEach(entry => {
-                const card = document.createElement('div');
-                card.classList.add('entry-card');
-
-                const entryDateObj = entry.data.date ? new Date(entry.data.date + "T00:00:00Z") : null;
-                const entryDateFormatted = entryDateObj ? entryDateObj.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }) : 'Dată necunoscută';
-                const entryLocation = entry.data.location || 'Locație neprecizată';
-                
-                let previewText = entry.data['inner-state'] || entry.data.reflection || entry.data.emotion || 'Fără previzualizare.';
-                if (previewText.length > 120) {
-                    previewText = previewText.substring(0, 120) + '...';
-                }
-
-                card.innerHTML = `
-                    <div class="entry-header">
-                        <h3 class="entry-title">${entryLocation}</h3>
-                        <span class="entry-date">${entryDateFormatted}</span>
-                    </div>
-                    <p class="entry-preview">${previewText.replace(/\n/g, '<br>')}</p>
-                    <div class="entry-actions">
-                        <button class="btn btn-small btn-secondary" onclick="viewEntry('${entry.id}')">👁️ Vezi</button>
-                        <button class="btn btn-small btn-primary" onclick="editEntry('${entry.id}')">✏️ Editează</button>
-                        <button class="btn btn-small btn-danger" onclick="deleteEntry('${entry.id}')">🗑️ Șterge</button>
-                    </div>
-                `;
-                entriesContainer.appendChild(card);
-            });
+            updateStats();
         }
         
-        function viewEntry(entryId) {
-            const entry = entries.find(e => e.id === entryId);
-            if (!entry) return;
-
-            const modal = document.getElementById('entry-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-body');
-            
-            const entryDateObj = entry.data.date ? new Date(entry.data.date + "T00:00:00Z") : null;
-            const entryDisplayDate = entryDateObj ? entryDateObj.toLocaleDateString('ro-RO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }) : 'Fără dată';
-            modalTitle.textContent = `Intrare: ${entryDisplayDate}`;
-            
-            let bodyContent = `<p style="font-size:0.9em; color:var(--text-muted);">ID: ${entry.id} | Salvat: ${new Date(entry.timestamp).toLocaleString('ro-RO')}</p><hr style="margin-bottom:1rem;">`;
-
-            const sectionsMeta = [
-                { id: "section-1", title: "📅 Data și locul", fields: ["date", "location", "conditions"] },
-                { id: "section-2", title: "💭 Starea mea interioară", fields: ["inner-state"] },
-                { id: "section-3", title: "🎯 Intenția principală", fields: ["emotion", "message"] },
-                { id: "section-4", title: "👁️ Observații vizuale", fields: ["light", "shadows", "textures", "colors", "movement", "contrast"] },
-                { id: "section-5", title: "🖼️ Elemente de compoziție", fields: ["angle", "negative-space", "leading-lines", "symmetry", "depth"] },
-                { id: "section-6", title: "📋 Cadre cheie planificate", fields: ["planned-shot-1", "planned-shot-2", "planned-shot-3"] },
-                { id: "section-7", title: "🔍 Descoperiri spontane", fields: ["discoveries"] },
-                { id: "section-8", title: "🤔 Reflecție după fotografiere", fields: ["reflection"] },
-                { id: "section-9", title: "⭐ Selecție preliminară", fields: ["selected-images"] },
-                { id: "section-10", title: "💡 Citate sau gânduri", fields: ["inspiration"] }
-            ];
-            
-            sectionsMeta.forEach(section => {
-                let sectionHtmlContent = '';
-                let hasDataInSection = false;
-
-                section.fields.forEach(fieldKey => {
-                    if (entry.data[fieldKey] && entry.data[fieldKey].trim() !== '') {
-                        if (!hasDataInSection) { 
-                             hasDataInSection = true;
-                        }
-                        const labelElement = document.querySelector(`label[for="${fieldKey}"]`);
-                        let labelText = fieldKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        if(labelElement) { // Prefer label from form if available
-                           labelText = labelElement.textContent.replace(':', '');
-                        }
-                        // Special handling for date field to format it nicely
-                        let fieldValue = entry.data[fieldKey];
-                        if (fieldKey === 'date') {
-                            const dateObj = new Date(fieldValue + "T00:00:00Z");
-                            fieldValue = dateObj.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
-                        } else {
-                           fieldValue = fieldValue.replace(/\n/g, '<br>');
-                        }
-                        
-                        sectionHtmlContent += `<li><strong>${labelText}:</strong><div style="padding-left:10px; margin-top:5px; word-break: break-word;">${fieldValue}</div></li>`;
-                    }
-                });
-                 if (hasDataInSection) {
-                    bodyContent += `<h3>${section.title}</h3><ul>${sectionHtmlContent}</ul>`;
-                }
-            });
-            
-            modalBody.innerHTML = bodyContent;
-            modal.classList.remove('hidden');
+        // --- FORM HANDLING ---
+        function clearForm() {
+            form.reset();
+            entryIdInput.value = '';
+            currentEditId = null;
+            currentPhotoDataUrl = null;
+            photoPreview.classList.add('hidden');
+            photoPreview.src = '#';
+            formTitle.textContent = '📝 Adaugă o Intrare Nouă';
+            submitBtnText.nodeValue = ' Salvează Intrarea'; 
+            photoUploadInput.value = ''; 
+            // Set today's date as default for new entries
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
         }
+        clearFormBtn.addEventListener('click', clearForm);
+
+
+        photoUploadInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) { // Max 2MB
+                    showToast('Imaginea este prea mare. Maxim 2MB.', 'danger');
+                    photoUploadInput.value = ''; 
+                    photoPreview.classList.add('hidden');
+                    currentPhotoDataUrl = entryIdInput.value ? journalEntries.find(e => e.id == entryIdInput.value)?.photoUrl : null; 
+                    if (currentPhotoDataUrl) photoPreview.src = currentPhotoDataUrl; else photoPreview.src = '#';
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoPreview.src = e.target.result;
+                    photoPreview.classList.remove('hidden');
+                    currentPhotoDataUrl = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                 if (!entryIdInput.value) { 
+                    photoPreview.classList.add('hidden');
+                    photoPreview.src = '#';
+                    currentPhotoDataUrl = null;
+                 }
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            loadingSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+
+            const entryData = {
+                id: currentEditId || Date.now(),
+                date: dateInput.value,
+                location: locationInput.value,
+                conditions: conditionsInput.value,
+                innerState: innerStateInput.value,
+                mainIntention: {
+                    emotion: emotionInput.value,
+                    message: messageInput.value
+                },
+                visualObservations: {
+                    light: lightInput.value,
+                    shadows: shadowsInput.value,
+                    textures: texturesInput.value,
+                    colors: colorsInput.value,
+                    movement: movementInput.value,
+                    contrast: contrastInput.value
+                },
+                compositionElements: {
+                    angle: angleInput.value,
+                    negativeSpace: negativeSpaceInput.value,
+                    leadingLines: leadingLinesInput.value,
+                    symmetry: symmetryInput.value,
+                    depth: depthInput.value
+                },
+                plannedShots: {
+                    shot1: plannedShot1Input.value,
+                    shot2: plannedShot2Input.value,
+                    shot3: plannedShot3Input.value
+                },
+                discoveries: discoveriesInput.value,
+                postReflection: reflectionInput.value,
+                selectedImages: selectedImagesInput.value,
+                inspiration: inspirationInput.value,
+                photoUrl: currentPhotoDataUrl,
+                lastModified: new Date().toISOString()
+            };
+
+            if (currentEditId) {
+                const index = journalEntries.findIndex(entry => entry.id === currentEditId);
+                if (index > -1) {
+                    journalEntries[index] = entryData;
+                }
+                showToast('Intrare actualizată cu succes!');
+            } else {
+                journalEntries.push(entryData);
+                showToast('Intrare adăugată cu succes!');
+            }
+
+            saveEntriesToStorage();
+            renderEntries();
+            clearForm();
+            showView('list'); 
+
+            setTimeout(() => { 
+                loadingSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            }, 300);
+        });
+
+        function populateFormForEdit(entry) {
+            currentEditId = entry.id;
+            entryIdInput.value = entry.id;
+            dateInput.value = entry.date;
+            locationInput.value = entry.location;
+            conditionsInput.value = entry.conditions || '';
+            innerStateInput.value = entry.innerState || '';
+            emotionInput.value = entry.mainIntention?.emotion || '';
+            messageInput.value = entry.mainIntention?.message || '';
+            lightInput.value = entry.visualObservations?.light || '';
+            shadowsInput.value = entry.visualObservations?.shadows || '';
+            texturesInput.value = entry.visualObservations?.textures || '';
+            colorsInput.value = entry.visualObservations?.colors || '';
+            movementInput.value = entry.visualObservations?.movement || '';
+            contrastInput.value = entry.visualObservations?.contrast || '';
+            angleInput.value = entry.compositionElements?.angle || '';
+            negativeSpaceInput.value = entry.compositionElements?.negativeSpace || '';
+            leadingLinesInput.value = entry.compositionElements?.leadingLines || '';
+            symmetryInput.value = entry.compositionElements?.symmetry || '';
+            depthInput.value = entry.compositionElements?.depth || '';
+            plannedShot1Input.value = entry.plannedShots?.shot1 || '';
+            plannedShot2Input.value = entry.plannedShots?.shot2 || '';
+            plannedShot3Input.value = entry.plannedShots?.shot3 || '';
+            discoveriesInput.value = entry.discoveries || '';
+            reflectionInput.value = entry.postReflection || '';
+            selectedImagesInput.value = entry.selectedImages || '';
+            inspirationInput.value = entry.inspiration || '';
+            
+            currentPhotoDataUrl = entry.photoUrl;
+            if (entry.photoUrl) {
+                photoPreview.src = entry.photoUrl;
+                photoPreview.classList.remove('hidden');
+            } else {
+                photoPreview.src = '#';
+                photoPreview.classList.add('hidden');
+            }
+            
+            formTitle.textContent = '✍️ Editează Intrarea';
+            submitBtnText.nodeValue = ' Actualizează Intrarea'; 
+            showView('form');
+            window.scrollTo({ top: journalFormContainer.offsetTop - 20, behavior: 'smooth' });
+        }
+
+        // --- ENTRY ACTIONS (VIEW, EDIT, DELETE) ---
+        entriesGrid.addEventListener('click', function(event) {
+            const target = event.target.closest('button');
+            if (!target) return;
+
+            const id = parseInt(target.dataset.id);
+            if (target.classList.contains('view-btn')) {
+                const entry = journalEntries.find(e => e.id === id);
+                if (entry) showModal(entry);
+            } else if (target.classList.contains('edit-btn')) {
+                const entry = journalEntries.find(e => e.id === id);
+                if (entry) populateFormForEdit(entry);
+            } else if (target.classList.contains('delete-btn')) {
+                if (confirm('Ești sigur că vrei să ștergi această intrare? Acțiunea este ireversibilă.')) {
+                    journalEntries = journalEntries.filter(e => e.id !== id);
+                    saveEntriesToStorage();
+                    renderEntries();
+                    showToast('Intrare ștearsă.', 'danger');
+                }
+            }
+        });
+        
+        // --- VIEW TOGGLING ---
+        function showView(viewName) {
+            journalFormContainer.classList.add('hidden');
+            entriesListContainer.classList.add('hidden');
+            if (viewName === 'form') {
+                journalFormContainer.classList.remove('hidden');
+                 if (!currentEditId) clearForm(); 
+            } else if (viewName === 'list') {
+                entriesListContainer.classList.remove('hidden');
+                renderEntries(); 
+            }
+        }
+        showNewEntryBtn.addEventListener('click', () => showView('form'));
+        addFirstEntryBtn.addEventListener('click', () => showView('form'));
+        showAllEntriesBtn.addEventListener('click', () => showView('list'));
+        fab.addEventListener('click', () => {
+            clearForm(); 
+            showView('form');
+            window.scrollTo({ top: journalFormContainer.offsetTop - 20, behavior: 'smooth' });
+        });
+
+        // --- MODAL ---
+        function showModal(entry) {
+            modalTitle.textContent = `Detalii: ${entry.location || 'Intrare Foto'}`;
+            let modalHtml = '';
+
+            if (entry.photoUrl) {
+                modalPhoto.src = entry.photoUrl;
+                modalPhoto.alt = `Fotografie pentru ${entry.location}`;
+                modalPhoto.classList.remove('hidden');
+            } else {
+                modalPhoto.classList.add('hidden');
+            }
+            
+            function buildSection(title, dataObject, fields) {
+                let sectionHtml = '';
+                const fieldEntries = Object.entries(fields)
+                    .map(([key, label]) => ({ key, label, value: dataObject ? dataObject[key] : entry[key] }))
+                    .filter(item => item.value);
+
+                if (fieldEntries.length > 0) {
+                    sectionHtml += `<h3>${title}</h3><ul>`;
+                    fieldEntries.forEach(item => {
+                        sectionHtml += `<li><strong>${item.label}:</strong> ${item.value.toString().replace(/\n/g, '<br>')}</li>`;
+                    });
+                    sectionHtml += `</ul>`;
+                }
+                return sectionHtml;
+            }
+
+            modalHtml += buildSection('📅 Data și Locul', entry, { date: 'Data', location: 'Locul', conditions: 'Condiții' });
+            modalHtml += buildSection('💭 Starea Mea Interioară', entry, { innerState: 'Descriere' });
+            modalHtml += buildSection('🎯 Intenția Principală', entry.mainIntention, { emotion: 'Emoție', message: 'Mesaj' });
+            modalHtml += buildSection('👁️ Observații Vizuale', entry.visualObservations, { light: 'Lumină', shadows: 'Umbre', textures: 'Texturi', colors: 'Culori', movement: 'Mișcare', contrast: 'Contrast' });
+            modalHtml += buildSection('🖼️ Elemente de Compoziție', entry.compositionElements, { angle: 'Unghi', negativeSpace: 'Spațiu Negativ', leadingLines: 'Linii Conducătoare', symmetry: 'Simetrie', depth: 'Profunzime' });
+            modalHtml += buildSection('📋 Cadre Cheie Planificate', entry.plannedShots, { shot1: 'Cadrul 1', shot2: 'Cadrul 2', shot3: 'Cadrul 3' });
+            modalHtml += buildSection('🔍 Descoperiri Spontane', entry, { discoveries: 'Descriere' });
+            modalHtml += buildSection('🤔 Reflecție După Fotografiere', entry, { postReflection: 'Reflecție' });
+            modalHtml += buildSection('⭐ Selecție Preliminară', entry, { selectedImages: 'Imagini' });
+            modalHtml += buildSection('💡 Citate sau Gânduri', entry, { inspiration: 'Inspirație' });
+            
+            modalBody.innerHTML = modalHtml; // Inject the generated HTML into the modal body
+            modal.classList.remove('hidden');
+            body.style.overflow = 'hidden'; 
+        }
+
 
         function closeModal() {
-            document.getElementById('entry-modal').classList.add('hidden');
-            document.getElementById('modal-body').innerHTML = ''; 
+            modal.classList.add('hidden');
+            body.style.overflow = '';
         }
-
-        function editEntry(entryId) {
-            const entryToEdit = entries.find(e => e.id === entryId);
-            if (!entryToEdit) return;
-
-            editingEntryId = entryId;
-
-            document.getElementById('journal-form').classList.remove('hidden');
-            document.getElementById('entries-list').classList.add('hidden');
-            
-            const form = document.getElementById('photo-journal-form');
-            form.reset(); 
-
-            for (const key in entryToEdit.data) {
-                if (form.elements[key]) {
-                    form.elements[key].value = entryToEdit.data[key];
-                }
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => { 
+            if (event.target === modal) {
+                closeModal();
             }
-            if (entryToEdit.data.date) {
-                 document.getElementById('date').value = entryToEdit.data.date;
-            } else {
-                setDefaultDate();
+        });
+        document.addEventListener('keydown', (event) => { 
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
             }
-            
-            form.querySelector('button[type="submit"]').textContent = '💾 Actualizează Intrarea';
-            document.getElementById('journal-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        });
 
-        function deleteEntry(entryId) {
-            if (confirm("Ești sigur că vrei să ștergi această intrare? Acțiunea este ireversibilă.")) {
-                entries = entries.filter(entry => entry.id !== entryId);
-                saveEntries();
-                updateStats();
-                // If the list is currently visible, refresh it
-                if (!document.getElementById('entries-list').classList.contains('hidden')) {
-                    displayEntries();
-                }
-                alert("Intrarea a fost ștearsă.");
-            }
-        }
-
+        // --- EXPORT DATA ---
         function exportData() {
-            if (entries.length === 0) {
-                alert("Nu există intrări de exportat.");
+            if (journalEntries.length === 0) {
+                showToast('Nu există date de exportat.', 'warning');
                 return;
             }
-            const dataStr = JSON.stringify(entries, null, 2); 
-            const dataBlob = new Blob([dataStr], { type: 'application/json;charset=utf-8;' });
-            const url = URL.createObjectURL(dataBlob);
+            const dataStr = JSON.stringify(journalEntries, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            const timestamp = new Date().toISOString().slice(0,10).replace(/-/g,'');
-            const filename = `jurnal_fotografic_${timestamp}.json`;
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
+            const exportFileDefaultName = 'jurnal_fotografic_intentie.json';
             
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert(`Datele au fost exportate ca '${filename}'`);
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            showToast('Datele au fost exportate.');
         }
+        exportDataBtn.addEventListener('click', exportData);
+
+        // --- TOAST ---
+        function showToast(message, type = 'success') {
+            toast.textContent = message;
+            toast.className = 'toast show'; // Add 'show' class
+            if (type === 'danger') {
+                toast.style.background = 'var(--danger)';
+                 toast.style.boxShadow = '0 8px 25px var(--shadow-strong)'; // Use stronger shadow for dark mode visibility
+            } else if (type === 'warning') {
+                toast.style.background = 'var(--warning)';
+                 toast.style.boxShadow = '0 8px 25px var(--shadow-strong)';
+            } else { // success
+                toast.style.background = 'var(--success)';
+                 toast.style.boxShadow = '0 8px 25px var(--shadow-strong)';
+            }
+            setTimeout(() => {
+                toast.className = 'toast'; // Remove 'show' class
+            }, 3000);
+        }
+
+        // --- PROGRESS BAR ---
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - (document.documentElement.clientHeight || document.body.clientHeight);
+            if (scrollHeight > 0) {
+                 const scrollPercent = (scrollTop / scrollHeight) * 100;
+                 progressBar.style.width = scrollPercent + '%';
+            } else {
+                progressBar.style.width = '0%';
+            }
+        });
+
+        // --- INITIALIZATION ---
+        function init() {
+            const preferredTheme = localStorage.getItem('photoJournalTheme') || 'light';
+            applyTheme(preferredTheme);
+            
+            loadEntriesFromStorage();
+            renderEntries(); 
+
+            if (journalEntries.length > 0) {
+                showView('list');
+            } else {
+                showView('form'); // Show form if no entries
+            }
+            
+            // Set today's date as default for new entries
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+        }
+
+        init();
+    });
     </script>
 </body>
 </html>
